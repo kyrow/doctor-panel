@@ -12,6 +12,36 @@ services:
     networks:
       - doctor_network
 
+  api:
+    container_name: api
+    depends_on:
+      - postgres
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./api/uploads:/usr/src/app/uploads
+    env_file:
+      - api/.env
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    command: sh -c "sleep 10 && npx prisma migrate deploy && npm run dev"
+    networks:
+      - doctor_network
+
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: web
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+    depends_on:
+      - api
+    networks:
+      - doctor_network
+      
 networks:
   doctor_network:
     name: doctor_network
