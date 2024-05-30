@@ -1,0 +1,17 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: unless-stopped
+    env_file:
+      - api/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.docker/db/:/var/lib/postgresql/data/
+    networks:
+      - doctor_network
+
+networks:
+  doctor_network:
+    name: doctor_network
