@@ -1,8 +1,9 @@
 import { Button, Form, Input, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
+import { useNavigate } from "react-router";
 
 function DoctorForm({ clientId }: { clientId: number }) {
-
+	const navigate = useNavigate();
 	const postUser = async (userData: any) => {
 
 		const formData = new FormData();
@@ -20,8 +21,9 @@ function DoctorForm({ clientId }: { clientId: number }) {
 	};
 
 	const onFinish = (values: any) => {
-		console.log('@', values)
-		postUser(values)
+		postUser(values).then((_)=>{
+			navigate("/")
+		})
 	};
 
 	const normFile = (e: any) => {
