@@ -1,5 +1,5 @@
 import { Flex, Table, TableProps, Typography } from 'antd';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IUser } from '../../../view/Doctor';
 
 function ClientList({ pickClient }: { pickClient: (newUser: IUser) => void }) {
