@@ -1,15 +1,16 @@
 import { Button, Form, Input, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 
-function ClientForm() {
+function DoctorForm({ clientId }: { clientId: number }) {
 
 	const postUser = async (userData: any) => {
 
 		const formData = new FormData();
-		formData.append('fio', userData.fio);
+		formData.append('doctor_diagnosis', userData.diagnose);
+		formData.append('doctor_description', userData.description);
 		formData.append('file', userData.file);
 
-		const res = await fetch(`http://localhost:3001/client`, {
+		const res = await fetch(`http://localhost:3001/doctor/${clientId}`, {
 			method: 'POST',
 			body: formData,
 		});
@@ -30,19 +31,29 @@ function ClientForm() {
 		return e && e.file;
 	};
 
+
 	return (
 		<Form
 			layout="horizontal"
-			style={{ maxWidth: 900 }}
 			onFinish={onFinish}
+			style={{ maxWidth: 900 }}
+			className="pb-8"
 		>
 
 			<Form.Item
-				label="Введите ваше ФИО"
-				name="fio"
-				rules={[{ required: true, message: 'Пожалуйста представьтесь' }]}
+				label="Диагноз"
+				name="diagnose"
+				rules={[{ required: true, message: 'Поставьте диагноз!' }]}
 			>
-				<Input />
+				<Input className="w-3/5" />
+			</Form.Item>
+
+
+			<Form.Item
+				label="Описание"
+				name="description"
+			>
+				<Input.TextArea className="w-3/5" />
 			</Form.Item>
 
 			<Form.Item
@@ -66,8 +77,9 @@ function ClientForm() {
 					Отправить
 				</Button>
 			</Form.Item>
+
 		</Form>
-	);
+	)
 }
 
-export default ClientForm;
+export default DoctorForm

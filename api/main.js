@@ -51,7 +51,7 @@ app.post("/client", upload.single("file"), async (req, res) => {
 
 app.post("/doctor/:id", upload.single("file"), async (req, res) => {
   const { id } = req.params;
-  const { doctor_diagnosis, doctor_decription } = req.body;
+  const { doctor_diagnosis, doctor_description } = req.body;
   const doctor_file = req.file;
 
   try {
@@ -62,7 +62,7 @@ app.post("/doctor/:id", upload.single("file"), async (req, res) => {
       data: {
         type: "DOCTOR",
         doctor_file: doctor_file.path,
-        doctor_decription: doctor_decription,
+        doctor_description: doctor_description,
         doctor_diagnosis: doctor_diagnosis,
       },
     });

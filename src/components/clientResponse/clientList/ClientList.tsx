@@ -1,16 +1,13 @@
-import { Flex, Table, TableProps, Typography } from 'antd'
-import { useEffect, useState } from 'react';
-import { IUser } from '../../view/Doctor';
+import { Flex, Table, TableProps, Typography } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { IUser } from '../../../view/Doctor';
 
-
-
-function UsersList({ pickClient }: { pickClient: (newUser: IUser) => void }) {
-
+function ClientList({ pickClient }: { pickClient: (newUser: IUser) => void }) {
 	const { Title } = Typography;
 	const [dataSource, setDataSource] = useState()
 
 	const getClients = async () => {
-		const res = await fetch('http://localhost:3001/clients')
+		const res = await fetch('http://localhost:3001/doctors')
 		const req = await res.json()
 		setDataSource(req)
 	}
@@ -51,4 +48,4 @@ function UsersList({ pickClient }: { pickClient: (newUser: IUser) => void }) {
 	)
 }
 
-export default UsersList
+export default ClientList

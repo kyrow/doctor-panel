@@ -1,46 +1,25 @@
-import { Button, Flex, Form, Input, Typography, Upload } from 'antd'
-import { PlusOutlined } from '@ant-design/icons';
+import { Flex, Image, Typography } from 'antd'
+import { IUser } from '../../view/Doctor';
+import DoctorForm from './docForm/DoctorForm';
 
-function UserData() {
+
+function UserData({ clientInfo }: { clientInfo: IUser }) {
 
 	const { Title, Text } = Typography;
 
 	return (
 		<Flex className="w-full">
 			<Title level={3} className="w-1/5">Данные пользователя</Title>
-			<Flex className="w-4/5" vertical>
-				<Form
-					layout="horizontal"
-					style={{ maxWidth: 900 }}
-				>
+			<Flex className="w-4/5" vertical gap='middle'>
 
-					<Text>username</Text>
+				<Text className="text-xl">{clientInfo.fio}</Text>
 
+				<Image
+					width={400}
+					src={`http://localhost:3001/file/${clientInfo.client_file.split('/')[1]}`}
+				/>
 
-					<Form.Item label="Диагноз">
-						<Input className="w-3/5" />
-					</Form.Item>
-
-
-					<Form.Item label="Описание">
-						<Input.TextArea className="w-3/5" />
-					</Form.Item>
-
-					<Form.Item
-						label="Загрузите изображение"
-						valuePropName="fileList"
-					>
-						<Upload action="/upload.do" listType="picture-card">
-							<button style={{ border: 0, background: 'none' }} type="button">
-								<PlusOutlined />
-								<div style={{ marginTop: 8 }}>Upload</div>
-							</button>
-						</Upload>
-					</Form.Item>
-
-					<Button>Отправить</Button>
-
-				</Form>
+				<DoctorForm clientId={clientInfo.id} />
 
 			</Flex>
 		</Flex>
